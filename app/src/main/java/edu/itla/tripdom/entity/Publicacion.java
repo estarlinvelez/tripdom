@@ -1,4 +1,7 @@
-package edu.itla.tripdom.Entity;
+package edu.itla.tripdom.entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Estarlin Velez on 15/11/17.
@@ -8,12 +11,20 @@ public class Publicacion {
     private String id;
     private String fecha;
     private String fechaviaje;
-    private int costo;
+    private float costo;
     private String descripcion;
     private String estado;
-    private int usuarioid;
+    private Usuario usuario;
     private String origen;
     private int cupo;
+
+
+    List <Publicaciondetalle> detalle;
+
+
+    public List<Publicaciondetalle> getDetalle() {
+        return detalle;
+    }
 
     public String getId() {
         return id;
@@ -39,7 +50,7 @@ public class Publicacion {
         this.fechaviaje = fechaviaje;
     }
 
-    public int getCosto() {
+    public float getCosto() {
         return costo;
     }
 
@@ -63,12 +74,12 @@ public class Publicacion {
         this.estado = estado;
     }
 
-    public int getUsuarioid() {
-        return usuarioid;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioid(int usuarioid) {
-        this.usuarioid = usuarioid;
+    public void setUsuario(int usuarioid) {
+        this.usuario = usuario;
     }
 
     public String getOrigen() {
@@ -79,11 +90,18 @@ public class Publicacion {
         this.origen = origen;
     }
 
-    public int getCupo() {
-        return cupo;
-    }
+    public int getCupo() {        return cupo;}
 
     public void setCupo(int cupo) {
         this.cupo = cupo;
+    }
+
+    public void addDetalle(Publicaciondetalle pd) {
+        if (detalle == null){
+            detalle = new ArrayList<>();
+
+        }
+        pd.setPublicacion(this);
+        detalle.add(pd);
     }
 }

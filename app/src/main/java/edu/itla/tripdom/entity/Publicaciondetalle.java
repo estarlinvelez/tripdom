@@ -1,4 +1,4 @@
-package edu.itla.tripdom.Entity;
+package edu.itla.tripdom.entity;
 
 /**
  * Created by Estarlin Velez on 15/11/17.
@@ -6,7 +6,7 @@ package edu.itla.tripdom.Entity;
 
 public class Publicaciondetalle {
     private String id;
-    private String publicacionid;
+    private Publicacion publicacion;
     private String lugar;
     private String descripcion;
     private String imagen;
@@ -19,12 +19,12 @@ public class Publicaciondetalle {
         this.id = id;
     }
 
-    public String getPublicacionid() {
-        return publicacionid;
+    public Publicacion getPublicacion() {
+        return publicacion;
     }
 
-    public void setPublicacionid(String publicacionid) {
-        this.publicacionid = publicacionid;
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
     }
 
     public String getLugar() {
