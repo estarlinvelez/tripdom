@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.itla.tripdom.view.RegistroUsuario;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 }*/
 
 
-            Intent vista = new Intent(MainActivity.this, Visualizar.class);
+            Intent vista = new Intent(MainActivity.this, RegistroUsuario.class);
                 vista.putExtra( "Nombre", nombre);
                 startActivity(vista);
 
