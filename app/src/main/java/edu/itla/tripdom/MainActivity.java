@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.itla.tripdom.view.ListaUsuario;
 import edu.itla.tripdom.view.RegistroUsuario;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,29 +18,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final EditText txtNombre = findViewById(R.id.txtNombre);
-        Button btnGuardar = findViewById(R.id.btnGuardar);
-
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String nombre = txtNombre.getText().toString();
-               /* if (nombre.isEmpty()) {
-                    Toast fallar = Toast.makeText(MainActivity.this, "Debe introducir un nombre", Toast.LENGTH_LONG);
-                    fallar.show();
-                }
-                else{
-                    Toast message = Toast.makeText(MainActivity.this, "Hola, " + nombre, Toast.LENGTH_LONG);
-                    message.show();
-
-                }*/
+                Button btnUsuario = findViewById(R.id.btnUsuario);
+        Button btnPublicacion = findViewById(R.id.btnPublicacion);
+        Button btnListadepublicaciones = findViewById(R.id.btnListadepublicaciones);
 
 
-            Intent vista = new Intent(MainActivity.this, RegistroUsuario.class);
-                vista.putExtra( "Nombre", nombre);
-                startActivity(vista);
+       btnUsuario.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent vista = new Intent(MainActivity.this, ListaUsuario.class);
 
-            }
+               startActivity(vista);
+           }
+       });
 
-        });
+
+
+
     }
 }

@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Visualizar" />
-        <activity android:name=".view.RegistroUsuario"></activity>
+        <activity android:name=".view.RegistroUsuario" />
+        <activity android:name=".view.ListaUsuario" />
+        <activity android:name=".view.RegistrodePublicacion" />
+        <activity android:name=".view.CrearPublicacion" />
+        <activity android:name=".view.ListaPublicacion"></activity>
     </application>
 
 </manifest>

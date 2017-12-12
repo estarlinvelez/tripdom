@@ -24,26 +24,33 @@ public class UsuarioDbo {
 
     }
 
-    public void crear (Usuario usuario){
-        SQLiteDatabase db = connection.getWritableDatabase();
+    public void guardar (Usuario usuario){
+
 
         ContentValues cv = new ContentValues();
         cv.put ("nombre",usuario.getNombre());
         cv.put ("email", usuario.getEmail());
-        cv.put ("tipo_usuario", usuario.toString());
         cv.put ("telefono", usuario.getTelefono());
+        cv.put ("tipo_usuario", usuario.getTipousuario().toString());
 
-        SQLiteDatabase conectarDb = connection.getWritableDatabase();
-        Long id = db.insert ("usuario", null, cv);
-        usuario.setId(id.intValue());
+
+        SQLiteDatabase db = connection.getWritableDatabase();
+        if (usuario.getId()==0) {
+            Long id = db.insert ("usuario", null, cv);
+            usuario.setId(id.intValue());
+        }
+        else {
+            db.update("usuario", cv, "id ="+ usuario.getId(), null);
+        }
+
 
         db.close();
 
     }
 
-    public List <Usuario> buscar (){
+    public List<Usuario> buscar (){
         List<Usuario> usuarios = new ArrayList<>();
-        String columna []  = new String[]{"id", "nombre", "email", "tipo_usuario"};
+        String columna []  = new String[]{"id", "nombre", "email","telefono", "tipo_usuario"};
         SQLiteDatabase db = connection.getReadableDatabase();
         Cursor cursor = db.query ("usuario", columna, null, null, null, null, null );
         cursor.moveToFirst();
@@ -53,6 +60,7 @@ public class UsuarioDbo {
             u.setId(cursor.getInt(cursor.getColumnIndex("id")));
             u.setNombre(cursor.getString(cursor.getColumnIndex("nombre")));
             u.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+            u.setTelefono(cursor.getString(cursor.getColumnIndex("telefono")));
             u.setTipousuario(TipoUsuario.valueOf((cursor.getString(cursor.getColumnIndex("tipo_usuario")))));
             usuarios.add(u);
             cursor.moveToNext();

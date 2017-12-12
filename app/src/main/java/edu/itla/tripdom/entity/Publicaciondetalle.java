@@ -5,17 +5,17 @@ package edu.itla.tripdom.entity;
  */
 
 public class Publicaciondetalle {
-    private String id;
+    private int id;
     private Publicacion publicacion;
     private String lugar;
     private String descripcion;
     private String imagen;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

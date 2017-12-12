@@ -9,50 +9,81 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.itla.tripdom.R;
+import edu.itla.tripdom.UsuarioActual;
 import edu.itla.tripdom.dao.UsuarioDbo;
 import edu.itla.tripdom.entity.TipoUsuario;
 import edu.itla.tripdom.entity.Usuario;
 
+import static edu.itla.tripdom.dao.DbConnection.LOG_T;
+
 public class RegistroUsuario extends AppCompatActivity {
     private static final String LOG_t = "RegistroUsuarioLog";
+
     UsuarioDbo db = new UsuarioDbo(this);
+    private Usuario usuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
-        Button btnLista = findViewById(R.id.btnListar);
-               Button btnSave = findViewById(R.id.btnsave);
-        final EditText txtnombre = findViewById(R.id.txtnombre);
-        final EditText txtEmail = findViewById(R.id.txtemail);
+        Button btnCambiar = findViewById(R.id.btnCambiar);
+        Button btnSave = findViewById(R.id.btnsave);
+        final EditText txtNombre = findViewById(R.id.txtNombre);
+        final EditText txtEmail = findViewById(R.id.txtEmail);
         final EditText txtTelefono = findViewById(R.id.txtTelefono);
 
-        btnLista.setOnClickListener(new View.OnClickListener() {
+
+        Bundle parametros = getIntent().getExtras();
+
+        if (parametros != null && parametros.containsKey("Usuario")) {
+            usuario = (Usuario) parametros.getSerializable("Usuario");
+            txtNombre.setText(usuario.getNombre());
+            txtEmail.setText(usuario.getEmail());
+            txtTelefono.setText(usuario.getTelefono());
+        }
+
+
+           btnCambiar.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 if (usuario!=null && usuario.getId()>0){
+                     UsuarioActual.setUsuario(usuario);
+                 }
+                 else{
+                     Toast.makeText(RegistroUsuario.this, "Usuario no permitido o no Existe", Toast.LENGTH_SHORT).show();
+
+                 }
+             }
+         });
+
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Usuario> usuarios = db.buscar();
-                for (Usuario u: usuarios){
-                    Log.i("ListUusuarios", u.toString());
+                if (usuario == null) {
+                    usuario = new Usuario();
                 }
+                String userNombre = txtNombre.getText().toString();
+                String userEmail = txtEmail.getText().toString();
+                String userTelefono = txtTelefono.getText().toString();
+
+                usuario.setNombre(txtNombre.getText().toString());
+                usuario.setEmail(txtEmail.getText().toString());
+                usuario.setTelefono(txtTelefono.getText().toString());
+                usuario.setTipousuario(TipoUsuario.CLIENTE);
+                Log.i(LOG_T, usuario.toString());
+                db.guardar(usuario);
+
+                Toast.makeText(RegistroUsuario.this, "El registro se ha completado de forma exitosa.", Toast.LENGTH_SHORT).show();
+                finish();
+
+
             }
         });
-                btnSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Usuario user = new Usuario();
-                        user.setNombre(txtnombre.getText().toString());
-                        user.setEmail(txtEmail.getText().toString());
-                        user.setTelefono(txtTelefono.getText().toString());
-                        user.setTipousuario(TipoUsuario.CLIENTE);
-                        Log.i(LOG_t, user.toString());
-                        db.crear(user);
-                        Toast.makeText(RegistroUsuario.this, "El registro se ha completado de forma exitosa.", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
     }
 }
