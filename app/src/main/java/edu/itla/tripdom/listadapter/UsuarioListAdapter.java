@@ -63,6 +63,6 @@ public class UsuarioListAdapter extends BaseAdapter{
         LvTipoUsuario.setText(u.getTipousuario().toString());
 
 
-        return null;
+        return view;
     }
 }

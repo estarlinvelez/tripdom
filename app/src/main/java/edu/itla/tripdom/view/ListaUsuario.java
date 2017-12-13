@@ -22,14 +22,18 @@ public class ListaUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(LOG_T, "1");
         setContentView(R.layout.activity_lista_usuario);
+        Log.i(LOG_T, "2");
+
 
 
         UsuarioDbo usuarioDbo = new UsuarioDbo(this);
         List<Usuario> usuarios = usuarioDbo.buscar();
 
-        Log.i(LOG_T, "Cantidad de usuarios =" + usuarios.size());
+        Log.e(LOG_T, "Cantidad de usuarios =" + usuarios.size());
         ListView listView = findViewById(R.id.listview);
+        //UsuarioListAdapter algo = new UsuarioListAdapter(this, usuarios);
         listView.setAdapter(new UsuarioListAdapter(this, usuarios));
 
         Button btnagregar = findViewById(R.id.btnagregar);
@@ -54,7 +58,7 @@ public class ListaUsuario extends AppCompatActivity {
                 ru.putExtra("Usuario", u);
                 startActivity(ru);
             }
-        });
+        });/**/
     }
 
 
